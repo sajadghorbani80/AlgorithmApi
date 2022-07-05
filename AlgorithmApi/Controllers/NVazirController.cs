@@ -20,9 +20,9 @@ namespace AlgorithmApi.Controllers
 
             int i = 1;
             List<List<int>> answersJsonObject = new List<List<int>>();
-            while(i*n <= answers.Count)
+            while (i * n <= answers.Count)
             {
-               var reshte= answers.Skip((i-1) * n).Take(n).ToList();
+                var reshte = answers.Skip((i - 1) * n).Take(n).ToList();
                 answersJsonObject.Add(reshte);
                 i++;
             }
