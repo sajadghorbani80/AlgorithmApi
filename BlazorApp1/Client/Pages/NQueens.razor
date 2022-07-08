@@ -1,0 +1,106 @@
+﻿@page "/nqueens"
+@using BlazorApp1.Shared
+@inject HttpClient Http
+
+<PageTitle>وزیر n الگوریتم</PageTitle>
+
+<h1>الگوریتم n وزیر</h1>
+
+<p>این الگوریتم تمام حالت های ممکن برای قرار دادن n وزیر را در شطرنج n*n نمایش می دهد.</p>
+<label>تعداد وزیر را وارد کنید:</label>
+<input style="text-align:right;" class="form-control" type="text" @onchange="@((e) => { n=Convert.ToInt32(e.Value.ToString());})" placeholder="لطفا عددی صحیح و مثبت وارد کنید" />
+<button class="btn btn-primary" onclick="@(async ()=> await Nqueens())">دریافت راه حل</button>
+<hr>
+
+@if (answers != null)
+{
+    @*<div style="display:flex;">
+        @foreach (var item in answers)
+        {
+            <p style="margin:10px !important">
+                @foreach (var i in item)
+                {
+                    <span>@i</span>
+                }
+            </p>
+        }
+
+    </div>*@
+   @* <hr>*@
+    <div class="main-container">
+        @foreach (var soloution in answers)
+        {
+            <div class="container">
+                <table dir="ltr">
+                    <tbody>
+                        @for (var i = 0; i < n; i++)
+                        {
+                            <tr>
+                                @for (var j = 0; j < n; j++)
+                                {
+                                    @if (j == soloution[i] - 1)
+                                    {
+                                        <td class="answer"></td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div style="display:flex;justify-content:center;">
+                    <p style="margin:10px !important">
+                        @foreach (var m in soloution)
+                        {
+                            <span>@m</span>
+                        }
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+}
+<br />
+<br />
+
+
+@*for
+    <table class="table">
+    <thead>
+    <tr>
+    <th>Date</th>
+    <th>Temp. (C)</th>
+    <th>Temp. (F)</th>
+    <th>Summary</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var forecast in forecasts)
+    {
+    <tr>
+    <td>@forecast.Date.ToShortDateString()</td>
+    <td>@forecast.TemperatureC</td>
+    <td>@forecast.TemperatureF</td>
+    <td>@forecast.Summary</td>
+    </tr>
+    }
+    </tbody>
+    </table>*@
+
+
+@code {
+    private List<List<int>>? answers;
+    private int n;
+    private async Task Nqueens()
+    {
+        using var res = await Http.PostAsJsonAsync<int>("api/nvazir", n);
+        answers = await res.Content.ReadFromJsonAsync<List<List<int>>>();
+    }
+}

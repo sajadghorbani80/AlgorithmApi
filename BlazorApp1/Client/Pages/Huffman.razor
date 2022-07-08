@@ -1,0 +1,53 @@
+﻿@page "/huffman"
+@using BlazorApp1.Shared
+@inject HttpClient Http
+<PageTitle>الگوریتم هافمن</PageTitle>
+<h1>الگوریتم هافمن</h1>
+
+@*<h3>رشته مورد نظر را در کادر زیر وارد کرده و دکمه رمزنگاری را بزنید</h3>*@
+<label>رشته مورد نظر را در کادر زیر وارد کرده و دکمه رمزنگاری را بزنید</label>
+<input class="form-control" type="text" @onchange="@((e) => { Encodeinput=e.Value.ToString();})" placeholder="example: ababcbbbc"/>
+<button class="btn btn-primary" onclick="@(async ()=> await Encodehuffman())">رمزنگاری</button>
+<p hidden="@HideLabelEn">پاسخ : @responseEn</p>
+<hr>
+@*<h3 hidden="@HideInputDe">برای رمزگشایی رشته مورد نظر را وارد کرده و رمزگشایی را بزنید</h3>*@
+<label hidden="@HideInputDe">برای رمزگشایی رشته مورد نظر را وارد کرده و رمزگشایی را بزنید</label>
+<input hidden="@HideInputDe" class="form-control" type="text" @onchange="@((e) => { Decodeinput=e.Value.ToString();})" placeholder="example: 0010010111101"/>
+<button hidden="@HideInputDe" class="btn btn-primary" onclick="@(async ()=> await Decodehuffman())">رمزگشایی</button>
+<p hidden="@HideLabelDe">پاسخ : @responseDe</p>
+
+
+@code {
+    private string responseEn;
+    private string responseDe;
+    private string Encodeinput { get; set; }
+    private string Decodeinput { get; set; }
+    private bool HideLabelEn   {get;set;} = true;
+    private bool HideLabelDe   {get;set;} = true;
+    private bool HideInputDe   {get;set;} = true;
+
+    public async Task Encodehuffman()
+    {
+        HideLabelEn = false;
+      
+        if (!string.IsNullOrWhiteSpace(Encodeinput))
+        {
+            using var res = await Http.PostAsJsonAsync("api/huffman/encode", Encodeinput);
+            responseEn = await res.Content.ReadAsStringAsync();
+            HideInputDe = false;
+        }
+        else
+            responseEn = "لطفا رشته ای را برای رمز نگاری وارد کنید";
+    }
+    public async Task Decodehuffman()
+    {
+        HideLabelDe = false;      
+        if (!string.IsNullOrWhiteSpace(Decodeinput))
+        {
+            using var res = await Http.PostAsJsonAsync("api/huffman/decode", Decodeinput);
+            responseDe = await res.Content.ReadAsStringAsync();
+        }
+        else
+            responseDe = "لطفا رشته ای را برای رمز گشایی وارد کنید";
+    }
+}
