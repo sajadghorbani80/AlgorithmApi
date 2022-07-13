@@ -73,6 +73,7 @@ namespace BlazorApp1.Server.Services
         public string Encode(string sentence)
         {
             string EncodedString = "";
+            sentence = sentence.Trim();
             foreach (var item in sentence)
             {
                 EncodedString += Code[characters.IndexOf(item)];
@@ -82,6 +83,7 @@ namespace BlazorApp1.Server.Services
 
         public string Decode(string sentence)
         {
+            sentence = sentence.Trim();
             string DecodedString = "";
             string code = "";
             foreach (var item in sentence)

@@ -14,19 +14,7 @@
 
 @if (answers != null)
 {
-    @*<div style="display:flex;">
-        @foreach (var item in answers)
-        {
-            <p style="margin:10px !important">
-                @foreach (var i in item)
-                {
-                    <span>@i</span>
-                }
-            </p>
-        }
 
-    </div>*@
-   @* <hr>*@
     <div class="main-container">
         @foreach (var soloution in answers)
         {
@@ -38,7 +26,8 @@
                             <tr>
                                 @for (var j = 0; j < n; j++)
                                 {
-                                    @if (j == soloution[i] - 1)
+                                    Console.WriteLine(i);
+                                    @if (j == soloution[i]-1)
                                     {
                                         <td class="answer"></td>
                                     }
@@ -70,29 +59,6 @@
 <br />
 <br />
 
-
-@*for
-    <table class="table">
-    <thead>
-    <tr>
-    <th>Date</th>
-    <th>Temp. (C)</th>
-    <th>Temp. (F)</th>
-    <th>Summary</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var forecast in forecasts)
-    {
-    <tr>
-    <td>@forecast.Date.ToShortDateString()</td>
-    <td>@forecast.TemperatureC</td>
-    <td>@forecast.TemperatureF</td>
-    <td>@forecast.Summary</td>
-    </tr>
-    }
-    </tbody>
-    </table>*@
 
 
 @code {

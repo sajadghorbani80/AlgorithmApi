@@ -4,13 +4,11 @@
 <PageTitle>الگوریتم هافمن</PageTitle>
 <h1>الگوریتم هافمن</h1>
 
-@*<h3>رشته مورد نظر را در کادر زیر وارد کرده و دکمه رمزنگاری را بزنید</h3>*@
 <label>رشته مورد نظر را در کادر زیر وارد کرده و دکمه رمزنگاری را بزنید</label>
 <input class="form-control" type="text" @onchange="@((e) => { Encodeinput=e.Value.ToString();})" placeholder="example: ababcbbbc"/>
 <button class="btn btn-primary" onclick="@(async ()=> await Encodehuffman())">رمزنگاری</button>
 <p hidden="@HideLabelEn">پاسخ : @responseEn</p>
 <hr>
-@*<h3 hidden="@HideInputDe">برای رمزگشایی رشته مورد نظر را وارد کرده و رمزگشایی را بزنید</h3>*@
 <label hidden="@HideInputDe">برای رمزگشایی رشته مورد نظر را وارد کرده و رمزگشایی را بزنید</label>
 <input hidden="@HideInputDe" class="form-control" type="text" @onchange="@((e) => { Decodeinput=e.Value.ToString();})" placeholder="example: 0010010111101"/>
 <button hidden="@HideInputDe" class="btn btn-primary" onclick="@(async ()=> await Decodehuffman())">رمزگشایی</button>
